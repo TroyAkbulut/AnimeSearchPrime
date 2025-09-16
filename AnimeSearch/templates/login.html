@@ -1,0 +1,21 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.3">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.3">
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+
+    <body>
+        {% include 'navbar.html' %}
+
+        <div style="margin: 5vh 25vw">
+            <h1>Login</h1>
+            <form class="anime_search_form" action="{% url 'search' %}" method="get">
+                {% csrf_token %}
+                <input name="searchQuery" class="login-input" type="text" placeholder="Username" value="{{ searchQuery }}">
+            </form>
+        </div>
+    </body>
+</html>

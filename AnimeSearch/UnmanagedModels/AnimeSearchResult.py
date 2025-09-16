@@ -1,0 +1,10 @@
+class AnimeSearchResult:
+    malID: int
+    malURL: str
+    imageURL: str
+    englishTitle: str
+    type: str
+    episodes: int
+    status: str
+    score: int
+    year: int

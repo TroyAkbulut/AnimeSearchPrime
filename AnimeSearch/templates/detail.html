@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{% static 'AnimeSearch/style.css' %}?v=1.11">
+        <link rel="stylesheet" href="{% static 'AnimeSearch/9anime.css' %}?v=1.5">
+
+        <meta charset="UTF-8">
+        <title> {{ animeDetail.mainTitle }} </title>
+    </head>
+
+    <body>
+        {% include 'AnimeSearch/navbar.html' %}
+        <section class="block_area block_area-detail">
+            <div class="block_area-content">
+                <div class="anime-detail">
+                    <div class="anime-poster" style="height: 100%">
+                        <div class="film-poster" style="padding-bottom: 0; height: 100%;">
+                            <img src="{{ animeDetail.imageURL }}" class="film-poster-img">
+                        </div>
+                    </div>
+                    <div class="film-infor">
+                        <div class="film-infor-top">
+                                <div style="float: right;" class="dropdown">
+                                    <button onclick="toggleDropdown()" class="dropbtn">
+                                        <img class="dropdown-icon" src="{% static 'AnimeSearch/images/bookmark.png' %}">
+                                    </button>
+                                    <div id="watchlistDropdown" class="dropdown-content">
+                                        {% for folder in folderNames %}
+                                        <a href="../add/{{ folder }}/{{ animeDetail.malID }}">
+                                            {{ folder }}
+                                            {% if folder == activeFolder %}
+                                            <img style="" src="{% static 'AnimeSearch/images/checkmark.png' %}">
+                                            {% endif %}
+                                        </a>
+                                        {% endfor %}
+                                        {% if activeFolder %}
+                                        <a href="../remove/{{ animeDetail.malID }}" style="color: red;">Remove</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            <div class="film-name dynamic-name anime-title">{{ animeDetail.mainTitle }}</div>
+                            <div class="alias anime-description">
+                                {{ animeDetail.displayTitles }}
+                            </div>
+                        </div>
+                        <div class="film-description anime-description">
+                            <p class="shorting">
+                                {{ animeDetail.synopsis}}<br><br>
+                                {{ animeDetail.background }}
+                            </p>
+
+                        </div>
+                        <div class="meta" style="display: flex;">
+                            <div class="col1">
+                                <div class="item">
+                                    <div class="item-title anime-description">Type:</div>
+                                    <div class="item-content anime-description">
+                                        {{ animeDetail.type }}
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-title anime-description">Studios:</div>
+                                    <div class="item-content anime-description">
+                                        {{ animeDetail.displayStudios }}
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-title anime-description">Date Aired:</div>
+                                    <div class="item-content anime-description">
+                                        {% if animeDetails.endDate %}
+                                            <span>{{ animeDetail.startDate }} to {{animeDetail.endDate}}</span>
+                                        {% else %}
+                                            {{ animeDetail.startDate }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="item">
+                                    <div class="item-title anime-description">Scores:</div>
+                                    <div class="item-content anime-description">
+                                        <span>{{ animeDetail.score }} from {{ animeDetail.scoredBy }} reviews</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-title anime-description">Status:</div>
+                                    <div class="item-content anime-description">
+                                        <span>{{ animeDetail.status }}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="item-title anime-description">Genre:</div>
+                                    <div class="item-content anime-description">
+                                        {{ animeDetail.displayGenres }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </body>
+
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function toggleDropdown() {
+            document.getElementById("watchlistDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
+</html>
