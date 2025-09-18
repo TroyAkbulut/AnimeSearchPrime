@@ -26,26 +26,19 @@
     outline: none;
 }
 
-.login-input{
-    height: 10%;
-    width: 100%;
-    border-radius: 20px;
-    background: #1c1c1c;
-    font-size: 40px;
-    color: #fff;
-    padding: 0 2%;
-    flex: 1;
-    border: none;
-    outline: none;
-}
-
 .btn-search{
     width: 150px;
     height: 100%;
+    cursor: pointer;
     background: #5a2e98;
     border-radius: 0 20px 20px 0;
     border: none;
     outline: none;
+    transition: 0.3s;
+}
+
+.btn-search:hover{
+    background: #3b1e64;
 }
 
 .btn-search b{
@@ -195,6 +188,24 @@
 .dropdown a:hover {background-color: #5a2e98;}
 
 .show {display: block;}
+
+.error-list {
+    margin-bottom: 0;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
 
 @media screen and (min-aspect-ratio: 1/1){
     .anime-title {

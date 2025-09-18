@@ -1,5 +1,5 @@
-from . import AnimeDetails
+from .AnimeDetails import AnimeDetails
 
 class AnimeEntry:
-    folder = str
-    animeDetails = AnimeDetails()
+    folder: str
+    animeDetails: AnimeDetails

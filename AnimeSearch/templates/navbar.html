@@ -30,8 +30,12 @@
     <ul class="navbar">
       <li class="navbar"><a href="{% url 'index' %}">Home</a></li>
       <li class="navbar"><a href="/watchlist">Anime List</a></li>
-      <li class="navbar" style="float: right;"><a href="{% url 'login' %}">Login</a></li>
-      <li class="navbar" style="float: right;"><a href="/Register">Register</a></li>
+      {% if user.is_authenticated %}
+        <li class="navbar" style="float: right; background-color: #5a2e98;"><a>Logged in as {{ user.username }}</a></li>
+        <li class="navbar" style="float: right;"><a href="{% url 'logout' %}">Logout</a></li>
+      {%else%}
+        <li class="navbar" style="float: right;"><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
     </ul>
   </body>
 </html>

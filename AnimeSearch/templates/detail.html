@@ -2,15 +2,15 @@
 {% load static %}
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="{% static 'AnimeSearch/style.css' %}?v=1.11">
-        <link rel="stylesheet" href="{% static 'AnimeSearch/9anime.css' %}?v=1.5">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.11">
+        <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.5">
 
         <meta charset="UTF-8">
         <title> {{ animeDetail.mainTitle }} </title>
     </head>
 
     <body>
-        {% include 'AnimeSearch/navbar.html' %}
+        {% include 'navbar.html' %}
         <section class="block_area block_area-detail">
             <div class="block_area-content">
                 <div class="anime-detail">
@@ -23,14 +23,14 @@
                         <div class="film-infor-top">
                                 <div style="float: right;" class="dropdown">
                                     <button onclick="toggleDropdown()" class="dropbtn">
-                                        <img class="dropdown-icon" src="{% static 'AnimeSearch/images/bookmark.png' %}">
+                                        <img class="dropdown-icon" src="{% static 'images/bookmark.png' %}">
                                     </button>
                                     <div id="watchlistDropdown" class="dropdown-content">
                                         {% for folder in folderNames %}
                                         <a href="../add/{{ folder }}/{{ animeDetail.malID }}">
                                             {{ folder }}
                                             {% if folder == activeFolder %}
-                                            <img style="" src="{% static 'AnimeSearch/images/checkmark.png' %}">
+                                            <img style="" src="{% static 'images/checkmark.png' %}">
                                             {% endif %}
                                         </a>
                                         {% endfor %}

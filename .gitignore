@@ -1,3 +1,7 @@
 /lib
 /Scripts
 /include
+Legacy/AnimeList.txt
+Legacy/AnimeListService.py
+Legacy/AnimeListImport.py
+AnimeSearchPrime/db.sqlite3

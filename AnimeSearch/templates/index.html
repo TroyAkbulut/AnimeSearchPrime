@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.3">
-        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.3">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.5">
         <meta charset="UTF-8">
         <title>Anime Search</title>
     </head>
@@ -34,10 +34,10 @@
                                     </div>
                                 </div>
                                 <img class="film-poster-img list-img" alt="anime.englishTitle" src="{{ anime.imageURL }}">
-                                <a href="/{{ anime.malID }}" class="film-poster-ahref"><b>^_^</b></a>
+                                <a href="{% url 'detail' anime.malID %}" class="film-poster-ahref"><b>^_^</b></a>
                             </div>
                             <div class="film-detail">
-                                <h3 class="film-name"><a href="/{{ anime.malID }}" title="{{ anime.englishTitle }}" target="_blank">{{ anime.englishTitle }}</a></h3>
+                                <h3 class="film-name"><a href="{% url 'detail' anime.malID %}" title="{{ anime.englishTitle }}" target="_blank">{{ anime.englishTitle }}</a></h3>
                             </div>
                         </div>
                     {% endfor %}

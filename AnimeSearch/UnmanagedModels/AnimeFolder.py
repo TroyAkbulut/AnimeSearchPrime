@@ -1,5 +1,5 @@
-from . import AnimeEntry
+from .AnimeEntry import AnimeEntry
 
 class AnimeFolder:
-    folderName = str
-    animeEntries = list[AnimeEntry]
+    folderName: str
+    animeEntries: list[AnimeEntry]
