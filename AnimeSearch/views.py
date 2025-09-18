@@ -96,7 +96,7 @@ def register(request: WSGIRequest):
         email = request.POST["registerEmail"]
         password = request.POST["registerPassword"]
         
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username__iexact=username).exists():
             template = loader.get_template("login.html")
             context = {
                 "registerErrors": ["Username already exists"],
