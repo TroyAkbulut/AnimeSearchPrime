@@ -4,6 +4,9 @@ from types import SimpleNamespace
 from ..UnmanagedModels.AnimeSearchResult import AnimeSearchResult
 from ..UnmanagedModels.AnimeDetails import AnimeDetails
 
+# TODO: Convert this to JS so it can run client side
+# Currently all requests come from the server IP, meaning rate limiting will occur quickly
+# Running JS on the browser will distribute the traffic across many IPs
 
 # https://docs.api.jikan.moe/
 class JinkanAPIService:

@@ -1,0 +1,33 @@
+.icon-frame {
+    height: 30px;
+}
+
+.settings-icon {
+    height: 40px;
+}
+
+.btn-settings{
+    width: 20%;
+    height: 10%;
+    margin: 2vh 0;
+    background: #5a2e98;
+    color: white;
+    font-size: 1.7vw;
+    border-radius: 20px;
+    border: none;
+}
+
+.btn-settings:hover {
+     cursor: pointer;
+     filter: brightness(80%);
+}
+
+.btn-contents {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.btn-contents .text {
+    margin-right: 5%;   
+}

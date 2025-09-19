@@ -180,7 +180,7 @@
   display: block;
 }
 
-.dropdown-content div.frame {
+.icon-frame {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,7 +188,7 @@
     float: right;
 }
 
-.dropdown-content img {
+.settings-icon {
     float: right;
     height: 25px;
 }

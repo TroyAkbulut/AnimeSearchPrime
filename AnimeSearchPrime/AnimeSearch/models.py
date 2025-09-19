@@ -16,7 +16,7 @@ class AnimeListEntry(models.Model):
     user = models.ForeignKey(User, models.PROTECT, db_column='User', blank=False, null=False)
     folder = models.ForeignKey(Folder, models.PROTECT, db_column='Folder', blank=False, null=False)
     malID = models.IntegerField(db_column="MalID", blank=False, null=False)
-    ImageURL = models.CharField(db_column='ImageURL', max_length=255, blank=False, null=False)
+    imageURL = models.CharField(db_column='ImageURL', max_length=255, blank=False, null=False)
     mainTitle = models.CharField(db_column='MainTitle', max_length=255, blank=False, null=False)
     
     class Meta:

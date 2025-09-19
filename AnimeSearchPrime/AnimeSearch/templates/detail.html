@@ -2,8 +2,8 @@
 {% load static %}
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.13">
         <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.5">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=2.2">
 
         <meta charset="UTF-8">
         <title> {{ animeDetail.mainTitle }} </title>
@@ -28,23 +28,30 @@
                                     <div id="watchlistDropdown" class="dropdown-content">
                                         {% if user.is_authenticated %}
                                             {% for folder in folders %}
-                                                <a href="../add/{{ folder.folderID }}/{{ animeDetail.malID }}">
-                                                    {{ folder.folderName }}
-                                                    {% if folder == activeFolder %}
-                                                        <div class="frame">
-                                                            <img class="checkmark" src="{% static 'images/checkmark.png' %}">
-                                                        </div>
-                                                    {% endif %}
-                                                </a>
+                                                <form id="folderForm{{ folder.folderID }}" name="folderForm{{ folder.folderID }}" action="{% url "addToList" %}" method="POST">
+                                                {% csrf_token %}
+                                                    <input name="folderID" type="hidden" value={{ folder.folderID }}>
+                                                    <input name="animeID" type="hidden" value={{ animeDetail.malID }}>
+                                                    <input name="imageURL" type="hidden" value={{ animeDetail.imageURL }}>
+                                                    <input name="mainTitle" type="hidden" value={{ animeDetail.mainTitle }}>
+                                                    <a href="#" onclick="document.getElementById('folderForm{{ folder.folderID }}').submit();">
+                                                        {{ folder.folderName }}
+                                                        {% if folder == activeFolder %}
+                                                            <div class="icon-frame">
+                                                                <img class="checkmark" src="{% static 'images/checkmark.png' %}">
+                                                            </div>
+                                                        {% endif %}
+                                                    </a>
+                                                </form>
                                             {% endfor %}
                                             <a href="{% url 'manageFolders' %}">
                                                 Manage Folders
-                                                <div class="frame">
-                                                    <img src="{% static 'images/settings.png' %}">
+                                                <div class="icon-frame">
+                                                    <img class="settings-icon" src="{% static 'images/settings.png' %}">
                                                 </div>
                                             </a>
                                             {% if activeFolder %}
-                                                <a href="../remove/{{ animeDetail.malID }}" style="color: red;">Remove</a>
+                                                <a href="{% url "removeFromList" animeDetail.malID %}" style="color: red;">Remove</a>
                                             {% endif %}
                                         {% else %}
                                                 <a href="{% url "login" %}">Log in</a>

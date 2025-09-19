@@ -49,7 +49,6 @@ def detail(request: WSGIRequest, animeID: int):
         activeFolder = animeEntry.folder
 
     folders = animeListService.GetFoldersForUser(request.user.pk)
-    logger.warning(folders)
 
     template = loader.get_template("detail.html")
     context = {
@@ -60,7 +59,18 @@ def detail(request: WSGIRequest, animeID: int):
 
     return HttpResponse(template.render(context, request))
 
-@login_required(login_url="login/")
+@login_required(login_url="/animesearch/login/")
+def watchlist(request: WSGIRequest):
+    animeList = animeListService.GetAnimeListForUser(request.user.pk)
+    
+    template = loader.get_template("watchlist.html")
+    context = {
+        "animeList": animeList
+    }
+    
+    return HttpResponse(template.render(context, request))
+
+@login_required(login_url="/animesearch/login/")
 def manageFolders(request: WSGIRequest):
     folders = animeListService.GetFoldersForUser(request.user.pk)
     
@@ -71,27 +81,44 @@ def manageFolders(request: WSGIRequest):
     template = loader.get_template("manageFolders.html")
     return HttpResponse(template.render(context, request))
 
-@login_required(login_url="login/")
+@login_required(login_url="/animesearch/login/")
 def createFolder(request: WSGIRequest):
     folderName = request.POST["folderName"]
     animeListService.CreateFolder(request.user.pk, folderName)
     
     return redirect("manageFolders")
 
-@login_required(login_url="login/")
+@login_required(login_url="/animesearch/login/")
 def deleteFolder(request: WSGIRequest):
     folderID = int(request.POST["folderID"])
     animeListService.DeleteFolder(folderID)
     
     return redirect("manageFolders")
 
-@login_required(login_url="login/")
+@login_required(login_url="/animesearch/login/")
 def editFolder(request: WSGIRequest):
     folderID = int(request.POST["folderID"])
     folderName = request.POST["folderName"]
     animeListService.RenameFolder(folderID, folderName)
     
     return redirect("manageFolders")
+
+@login_required(login_url="/animesearch/login/")
+def addToList(request: WSGIRequest):
+    folderID = int(request.POST["folderID"])
+    animeID = int(request.POST["animeID"])
+    imageURL = request.POST["imageURL"]
+    mainTitle = request.POST["mainTitle"]
+    
+    animeListService.AddAnime(folderID, animeID, imageURL, mainTitle, request.user.pk)
+    
+    return redirect("detail", animeID=animeID)
+
+@login_required(login_url="/animesearch/login/")
+def removeFromList(request: WSGIRequest, animeID: int):
+    animeListService.RemoveAnime(animeID, request.user.pk)
+    
+    return redirect("detail", animeID=animeID)
 
 def login(request: WSGIRequest):
     if request.user.is_authenticated:
@@ -105,8 +132,6 @@ def login(request: WSGIRequest):
     elif request.method == "POST":
         username = request.POST["loginUsername"]
         password = request.POST["loginPassword"]
-        logger.warning(username)
-        logger.warning(password)
         user = authenticate(username=username, password=password)
         if not user:
             template = loader.get_template("login.html")

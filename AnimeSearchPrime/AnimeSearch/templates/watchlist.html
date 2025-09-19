@@ -1,0 +1,65 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.2">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=2.2">
+        <link rel="stylesheet" href="{% static 'watchlist.css' %}?v=1.1">
+        <meta charset="UTF-8">
+        <title>Watchlist</title>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <div style="margin: 5vh 5vw">
+            <div class="tab">
+                {% for folder in animeList %}
+                    <button class="tablinks {% if folder == animeList.0 %}active{% endif %}" onclick="openFolder(event, '{{ folder.folder.folderName }}')">{{ folder.folder.folderName }}</button>
+                {% endfor %}
+            </div>
+
+            {% for folder in animeList %}
+                <div id="{{ folder.folder.folderName }}" class="tabcontent" style="{% if folder == animeList.0 %}display: block;{% endif %}">
+                    <ul class="watchlist">
+                        {% for anime in folder.animeListEntries %}
+                        <a href="{% url "detail" anime.malID %}">
+                            <li class="watchlist-item">
+                                <img class="watchlist-img" src="{{ anime.imageURL }}">
+                                {{ anime.mainTitle }}
+                            </li>
+                        </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+
+            {% if not animeList %}
+                <h1>No Folders Found</h1>
+            {% endif %}
+            <form action="{% url "manageFolders" %}">
+                <button type="submit" class="btn-settings">
+                    <div class="btn-contents">
+                        <div class="text">Manage Folders</div>
+                        <div class="icon-frame">
+                            <img class="settings-icon" src="{% static 'images/settings.png' %}">
+                        </div>
+                    </div>
+                </button>
+            </form>
+        </div>
+
+        <script>
+            function openFolder(evt, folderName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(folderName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+    </body>
+</html>
