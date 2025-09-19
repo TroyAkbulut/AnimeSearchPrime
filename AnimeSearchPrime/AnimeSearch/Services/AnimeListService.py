@@ -60,6 +60,7 @@ class AnimeListService:
     def GetAnimeListForUser(self, userID: int|None) -> list[AnimeFolder]:
         user = User.objects.get(pk=userID)
         folders = list(Folder.objects.filter(user=user))
+        folders.sort(key=lambda folder: folder.folderName, reverse=True)
         animeList = list(AnimeListEntry.objects.filter(user=user))
         
         animeFolders: list[AnimeFolder] = list()
