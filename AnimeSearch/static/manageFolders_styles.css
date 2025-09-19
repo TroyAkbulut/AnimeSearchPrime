@@ -1,0 +1,119 @@
+h1 {
+    text-align: center; 
+    font-size: 5vmin; 
+    color: white;
+}
+
+h2 {
+    text-align: center; 
+    font-size: 3vmin; 
+    color: #8b232d;
+}
+
+.folder_table {
+    display: flex;
+    overflow: auto;
+    width: 100%;
+    justify-content: center;
+    padding: 2vmin;
+}
+
+.folder_table table {
+    border: 5px solid #1c1c1c;
+    width: 80%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 1px;
+    text-align: center;
+}
+
+.folder_table caption {
+    caption-side: top;
+    text-align: left;
+}
+
+.folder_table tbody {
+    font-size: 200%;
+}
+
+.folder_table th {
+    border: 5px solid #0e0e0e;
+    background-color: #5a2e98;
+    color: #ffffff;
+    padding: 5px;
+}
+
+.folder_table td {
+    border: 5px solid #0e0e0e;
+    padding: 5px;
+    height: 10vmin;
+    color: #ffffff;
+    background-color: #3d3d3d;
+}
+
+.folder-input {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    background: #1f1f1f;
+    font-size: 30px;
+    color: #fff;
+    padding: 0 4%;
+    border: none;
+    outline: none;
+}
+
+.btn-container {
+    display: flex; 
+    height: 100%; 
+    justify-content: center;
+}
+
+.btn-action {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    color: white;
+    font-size: 1.7vmax;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+}
+
+.btn-action:hover {
+    filter: brightness(70%);
+    cursor: pointer;
+}
+
+.btn-action.create {
+    background-color: #3692f5;
+}
+
+.btn-action.edit {
+    background-color: #007bff;
+}
+
+.btn-action.delete {
+    background-color: #dc3545;
+}
+
+.btn-action.confirm {
+    background-color: #dc3545;
+    width: 20%;
+    border-radius: 20px 0 0 20px;
+    display: none;
+
+    background-image: url("images/delete.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn-action.cancel {
+    background-color: #b1b1b1;
+    color:black;
+    width: 80%;
+    border-radius: 0 20px 20px 0;
+    display: none;
+}

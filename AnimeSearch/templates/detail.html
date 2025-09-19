@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.11">
+        <link rel="stylesheet" href="{% static 'style.css' %}?v=1.13">
         <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.5">
 
         <meta charset="UTF-8">
@@ -26,16 +26,28 @@
                                         <img class="dropdown-icon" src="{% static 'images/bookmark.png' %}">
                                     </button>
                                     <div id="watchlistDropdown" class="dropdown-content">
-                                        {% for folder in folderNames %}
-                                        <a href="../add/{{ folder }}/{{ animeDetail.malID }}">
-                                            {{ folder }}
-                                            {% if folder == activeFolder %}
-                                            <img style="" src="{% static 'images/checkmark.png' %}">
+                                        {% if user.is_authenticated %}
+                                            {% for folder in folders %}
+                                                <a href="../add/{{ folder.folderID }}/{{ animeDetail.malID }}">
+                                                    {{ folder.folderName }}
+                                                    {% if folder == activeFolder %}
+                                                        <div class="frame">
+                                                            <img class="checkmark" src="{% static 'images/checkmark.png' %}">
+                                                        </div>
+                                                    {% endif %}
+                                                </a>
+                                            {% endfor %}
+                                            <a href="{% url 'manageFolders' %}">
+                                                Manage Folders
+                                                <div class="frame">
+                                                    <img src="{% static 'images/settings.png' %}">
+                                                </div>
+                                            </a>
+                                            {% if activeFolder %}
+                                                <a href="../remove/{{ animeDetail.malID }}" style="color: red;">Remove</a>
                                             {% endif %}
-                                        </a>
-                                        {% endfor %}
-                                        {% if activeFolder %}
-                                        <a href="../remove/{{ animeDetail.malID }}" style="color: red;">Remove</a>
+                                        {% else %}
+                                                <a href="{% url "login" %}">Log in</a>
                                         {% endif %}
                                     </div>
                                 </div>

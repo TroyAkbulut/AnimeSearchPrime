@@ -163,7 +163,7 @@
 
 .dropdown-content {
     display: none;
-    width: 350%;
+    width: 400%;
     transform: translate(-70%);
     position: absolute;
     background-color: #333;
@@ -180,9 +180,21 @@
   display: block;
 }
 
+.dropdown-content div.frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    float: right;
+}
+
 .dropdown-content img {
     float: right;
     height: 25px;
+}
+
+.dropdown-content img.checkmark {
+    height: 30px;
 }
 
 .dropdown a:hover {background-color: #5a2e98;}

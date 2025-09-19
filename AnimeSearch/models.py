@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class Folder(models.Model):
     folderID = models.AutoField(db_column='FolderID', primary_key=True)
     folderName = models.CharField(db_column='FolderName', max_length=255, blank=False, null=False)
+    user = models.ForeignKey(User, models.PROTECT, db_column='User', blank=False, null=False)
     
     class Meta:
         db_table = "Folder"

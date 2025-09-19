@@ -2,4 +2,4 @@ from .AnimeEntry import AnimeEntry
 
 class AnimeFolder:
     folderName: str
-    animeEntries: list[AnimeEntry]
+    animeDetails: list[AnimeEntry]
