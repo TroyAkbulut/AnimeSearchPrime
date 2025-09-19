@@ -1,0 +1,230 @@
+.search-container{
+    width: 100%;
+    height: 10%;
+    margin: 2% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anime_search_form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.search-bar{
+    height: 100%;
+    width: 100%;
+    border-radius: 20px 0 0 20px;
+    background: #1c1c1c;
+    font-size: 40px;
+    color: #fff;
+    padding: 0 2%;
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+.btn-search{
+    width: 150px;
+    height: 100%;
+    cursor: pointer;
+    background: #5a2e98;
+    border-radius: 0 20px 20px 0;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+}
+
+.btn-search:hover{
+    background: #3b1e64;
+}
+
+.btn-search b{
+    height: 100%;
+}
+
+.list-img{
+        position: absolute !important;
+        object-fit: cover !important;
+}
+
+.watchlist {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    font-size: 0;
+}
+
+.watchlist-item {
+    width: 96%;
+    height: 10vh;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    font-size: 2vh;
+    background-color: inherit;
+
+    padding: 2%;
+
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.watchlist-img{
+    vertical-align: middle;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-right: 2%;
+}
+
+.watchlist a{
+    color: white;
+    background-color: #1c1c1c;
+}
+
+.watchlist a:nth-child(even){
+    background-color: #181818;
+}
+
+.watchlist a:hover{
+    color: #5a2e98;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    background: none;
+    color: white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #5a2e98;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #5a2e98;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    background-color: #1c1c1c;
+}
+
+.dropbtn {
+    width: 5vh;
+    background: none;
+
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    opacity:0.7
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-icon{
+    height: 100%;
+    width: 100%;
+
+    pointer-events: none;
+}
+
+.dropdown-content {
+    display: none;
+    width: 400%;
+    transform: translate(-70%);
+    position: absolute;
+    background-color: #333;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10%;
+    z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.icon-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    float: right;
+}
+
+.settings-icon {
+    float: right;
+    height: 25px;
+}
+
+.dropdown-content img.checkmark {
+    height: 30px;
+}
+
+.dropdown a:hover {background-color: #5a2e98;}
+
+.show {display: block;}
+
+.error-list {
+    margin-bottom: 0;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+@media screen and (min-aspect-ratio: 1/1){
+    .anime-title {
+        font-size: 3vh !important;
+    }
+
+    .anime-description{
+        font-size: 2vh !important;
+    }
+}
