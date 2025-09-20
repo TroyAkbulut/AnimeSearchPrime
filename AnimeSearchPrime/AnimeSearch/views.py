@@ -165,6 +165,8 @@ def register(request: WSGIRequest):
         user = User.objects.create(username=username, email=email)
         user.set_password(password)
         user.save()
+        
+        user = authenticate(username=username, password=password)
         authLogin(request, user)
         
         return redirect("index")
