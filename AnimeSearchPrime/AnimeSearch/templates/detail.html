@@ -33,7 +33,7 @@
                                                     <input name="folderID" type="hidden" value={{ folder.folderID }}>
                                                     <input name="animeID" type="hidden" value={{ animeDetail.malID }}>
                                                     <input name="imageURL" type="hidden" value={{ animeDetail.imageURL }}>
-                                                    <input name="mainTitle" type="hidden" value={{ animeDetail.mainTitle }}>
+                                                    <input name="mainTitle" type="hidden" value="{{ animeDetail.mainTitle }}">
                                                     <a href="#" onclick="document.getElementById('folderForm{{ folder.folderID }}').submit();">
                                                         {{ folder.folderName }}
                                                         {% if folder == activeFolder %}
