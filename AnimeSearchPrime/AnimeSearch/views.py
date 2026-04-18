@@ -130,7 +130,9 @@ def exportWatchList(request: WSGIRequest):
     export_data = animeListService.GetExportText(folderID, request.user.pk)
     export_io = BytesIO(export_data.encode())
     
-    return FileResponse(export_io, as_attachment=True, filename=f"{folderName}.txt")
+    cleaned_folder_name = folderName.replace(" ", "_").replace("/", "_").replace("\\", "_").replace(".", "_")
+    
+    return FileResponse(export_io, as_attachment=True, filename=f"{cleaned_folder_name}.txt")
 
 def login(request: WSGIRequest):
     if request.user.is_authenticated:

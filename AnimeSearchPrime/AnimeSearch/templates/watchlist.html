@@ -75,7 +75,7 @@
 
                 document.getElementById(folderID).style.display = "block";
                 document.getElementById("exportFolderID").value = folderID;
-                document.getElementById("exportFolderName").value = document.getElementById(folderID).getElementsByClassName("tablinks")[0].innerText;
+                document.getElementById("exportFolderName").value = evt.currentTarget.innerText;
                 evt.currentTarget.className += " active";
             }
         </script>
