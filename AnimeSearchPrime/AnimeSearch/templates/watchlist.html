@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="{% static '9anime.css' %}?v=1.2">
         <link rel="stylesheet" href="{% static 'style.css' %}?v=2.2">
-        <link rel="stylesheet" href="{% static 'watchlist.css' %}?v=1.1">
+        <link rel="stylesheet" href="{% static 'watchlist.css' %}?v=1.2">
         <meta charset="UTF-8">
         <title>Watchlist</title>
     </head>
@@ -12,12 +12,12 @@
         <div style="margin: 5vh 5vw">
             <div class="tab">
                 {% for folder in animeList %}
-                    <button class="tablinks {% if folder == animeList.0 %}active{% endif %}" onclick="openFolder(event, '{{ folder.folder.folderName }}')">{{ folder.folder.folderName }}</button>
+                    <button class="tablinks {% if folder == animeList.0 %}active{% endif %}" onclick="openFolder(event, '{{ folder.folder.folderID }}')">{{ folder.folder.folderName }}</button>
                 {% endfor %}
             </div>
 
             {% for folder in animeList %}
-                <div id="{{ folder.folder.folderName }}" class="tabcontent" style="{% if folder == animeList.0 %}display: block;{% endif %}">
+                <div id="{{ folder.folder.folderID }}" class="tabcontent" style="{% if folder == animeList.0 %}display: block;{% endif %}">
                     <ul class="watchlist">
                         {% for anime in folder.animeListEntries %}
                         <a href="{% url "detail" anime.malID %}">
@@ -34,20 +34,35 @@
             {% if not animeList %}
                 <h1>No Folders Found</h1>
             {% endif %}
-            <form action="{% url "manageFolders" %}">
-                <button type="submit" class="btn-settings">
-                    <div class="btn-contents">
-                        <div class="text">Manage Folders</div>
-                        <div class="icon-frame">
-                            <img class="settings-icon" src="{% static 'images/settings.png' %}">
+            <span class="actions-container">
+                <form class="action-form" action="{% url "manageFolders" %}">
+                    <button type="submit" class="btn-settings">
+                        <div class="btn-contents">
+                            <div class="text">Manage Folders</div>
+                            <div class="icon-frame">
+                                <img class="settings-icon" src="{% static 'images/settings.png' %}">
+                            </div>
                         </div>
-                    </div>
-                </button>
-            </form>
+                    </button>
+                </form>
+                <form class="action-form" method="POST" action="{% url "exportWatchList" %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-export">
+                        <div class="btn-contents">
+                            <div class="text">Export Selected Folder</div>
+                            <div class="icon-frame">
+                                <img class="settings-icon" src="{% static 'images/export.png' %}">
+                            </div>
+                        </div>
+                    </button>
+                    <input id="exportFolderID" name="folderID" type="hidden" value={{ animeList.0.folder.folderID }}>
+                    <input id="exportFolderName" name="folderName" type="hidden" value={{ animeList.0.folder.folderName }}>
+                </form>
+            </span>
         </div>
 
         <script>
-            function openFolder(evt, folderName) {
+            function openFolder(evt, folderID) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
@@ -57,7 +72,10 @@
                 for (i = 0; i < tablinks.length; i++) {
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
-                document.getElementById(folderName).style.display = "block";
+
+                document.getElementById(folderID).style.display = "block";
+                document.getElementById("exportFolderID").value = folderID;
+                document.getElementById("exportFolderName").value = document.getElementById(folderID).getElementsByClassName("tablinks")[0].innerText;
                 evt.currentTarget.className += " active";
             }
         </script>

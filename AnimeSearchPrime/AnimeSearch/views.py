@@ -1,7 +1,9 @@
+from io import BytesIO
+
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -119,6 +121,16 @@ def removeFromList(request: WSGIRequest, animeID: int):
     animeListService.RemoveAnime(animeID, request.user.pk)
     
     return redirect("detail", animeID=animeID)
+
+@login_required(login_url="/animesearch/login/")
+def exportWatchList(request: WSGIRequest):
+    folderID = int(request.POST["folderID"])
+    folderName = request.POST["folderName"]
+    
+    export_data = animeListService.GetExportText(folderID, request.user.pk)
+    export_io = BytesIO(export_data.encode())
+    
+    return FileResponse(export_io, as_attachment=True, filename=f"{folderName}.txt")
 
 def login(request: WSGIRequest):
     if request.user.is_authenticated:

@@ -75,3 +75,19 @@ class AnimeListService:
             animeFolder.animeListEntries.append(entry)
             
         return animeFolders
+    
+    def GetExportText(self, folderID: int, userID: int|None) -> str:
+        user = User.objects.get(pk=userID)
+        folder = Folder.objects.get(pk=folderID)
+        animeEntries = list(AnimeListEntry.objects.filter(folder=folder, user=user))
+        animeEntries.sort(key=lambda entry: str(entry.malID)[::-1])
+        
+        export_text = ""
+        count = 1
+        for entry in animeEntries:
+            reversed_id = str(entry.malID)[::-1]
+            export_text += f"{count}: {reversed_id} {entry.mainTitle}\n"
+            count += 1
+            
+        return export_text
+    
