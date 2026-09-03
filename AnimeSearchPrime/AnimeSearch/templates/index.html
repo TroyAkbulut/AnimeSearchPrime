@@ -34,10 +34,20 @@
                                     </div>
                                 </div>
                                 <img class="film-poster-img list-img" alt="anime.englishTitle" src="{{ anime.imageURL }}">
-                                <a href="{% url 'detail' anime.malID %}" class="film-poster-ahref"><b>^_^</b></a>
+                                {% if anime.malID %}
+                                    <a href="{% url 'detail' anime.malID %}" class="film-poster-ahref"><b>^_^</b></a>
+                                {% else %}
+                                    <a class="film-poster-ahref"><b>x_x</b></a>
+                                {% endif %}
                             </div>
                             <div class="film-detail">
-                                <h3 class="film-name"><a href="{% url 'detail' anime.malID %}" title="{{ anime.englishTitle }}" target="_blank">{{ anime.englishTitle }}</a></h3>
+                                    <h3 class="film-name">
+                                        {% if anime.malID %}
+                                            <a href="{% url 'detail' anime.malID %}" title="{{ anime.englishTitle }}" target="_blank">{{ anime.englishTitle }}</a>
+                                        {% else %}
+                                            <a title="{{ anime.englishTitle }}" target="_blank">{{ anime.englishTitle }}</a>
+                                        {% endif %}
+                                    </h3>
                             </div>
                         </div>
                     {% endfor %}

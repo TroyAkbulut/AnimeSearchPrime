@@ -14,14 +14,14 @@ from django.contrib.auth.decorators import login_required
 import logging
 logger = logging.getLogger("logger")
 
-from .Services.JinkanAPIService import JinkanAPIService
 from .Services.AnimeListService import AnimeListService
+from .Services.AnilistAPIService import AnilistAPIService
 
-jinkanAPIService = JinkanAPIService()
+anilistAPIService = AnilistAPIService()
 animeListService = AnimeListService()
 
 def index(request: WSGIRequest):
-    animeSearchResults = jinkanAPIService.GetAnimeSearch()
+    animeSearchResults = anilistAPIService.GetDefaultAnimeSearch()
     template = loader.get_template("index.html")
     context = {
         "animeSearchResults": animeSearchResults,
@@ -33,7 +33,7 @@ def index(request: WSGIRequest):
 def search(request: WSGIRequest):
     searchQuery = request.GET["searchQuery"]
 
-    animeSearchResults = jinkanAPIService.GetAnimeSearch(q=searchQuery)
+    animeSearchResults = anilistAPIService.GetAnimeSearch(searchQuery)
     template = loader.get_template("index.html")
     context = {
         "animeSearchResults": animeSearchResults,
@@ -44,8 +44,8 @@ def search(request: WSGIRequest):
 
 def detail(request: WSGIRequest, animeID: int):
     activeFolder = None
-    animeDetail = jinkanAPIService.GetAnimeByID(animeID)
-    
+    animeDetail = anilistAPIService.GetAnimeByID(animeID)
+
     exists, animeEntry = animeListService.FindAnimeForUserByID(animeID, request.user.pk)
     if exists and animeEntry is not None:
         activeFolder = animeEntry.folder
