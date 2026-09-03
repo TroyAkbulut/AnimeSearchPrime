@@ -179,8 +179,8 @@ query($perPage: Int, $type: MediaType = ANIME, $sort: [MediaSort] = [POPULARITY_
 
     def GetAnimeByID(self, malID: int):
         queryOperation = """
-query Query($idMal: Int) {
-    Media(idMal: $idMal) {
+query Query($idMal: Int, $type: MediaType = ANIME) {
+    Media(idMal: $idMal, type: $type) {
         idMal
         coverImage {
             extraLarge
