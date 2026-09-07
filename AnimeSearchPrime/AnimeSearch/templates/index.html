@@ -20,6 +20,9 @@
             </div>
             <div class="film_list">
                 <div class="film_list-wrap">
+                    {% if not animeSearchResults %}
+                        <h3>Anilist API is currently unavailable.</h3>
+                    {% endif %}
                     {% for anime in animeSearchResults %}
                         <div class="flw-item">
                             <div class="film-poster" style="border-radius: 2%;">

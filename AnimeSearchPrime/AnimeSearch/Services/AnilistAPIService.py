@@ -108,12 +108,12 @@ class AnilistAPIService:
         return animeDetails
 
     @staticmethod
-    def __MakePostRequest(requestURL: str, operation: str, variables: dict[str, object] = dict()) -> SimpleNamespace:
+    def __MakePostRequest(requestURL: str, operation: str, variables: dict[str, object] = dict()) -> tuple[SimpleNamespace, int]:
         response = requests.post(requestURL, json={"query": operation, "variables": variables}) # type: ignore
         jsonData = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-        return jsonData.data
+        return jsonData.data, response.status_code
 
-    def GetAnimeSearch(self, search: str = ""):
+    def GetAnimeSearch(self, search: str = "") -> list[AnimeSearchResult]:
         # TODO: Add an enum for genres so that they can also be searched
 
         queryOperation = """
@@ -142,11 +142,13 @@ query($search: String, $perPage: Int, $type: MediaType = ANIME, $sort: [MediaSor
             "search": search,
             "perPage": 25
         }
-        data = self.__MakePostRequest(self.baseURL, queryOperation, variables)
+        data, status_code = self.__MakePostRequest(self.baseURL, queryOperation, variables)
+        if status_code != 200:
+            return []
         searchResults = self.__CastSearchDataToAnimeSearchResult(data.Page.media)
         return searchResults
     
-    def GetDefaultAnimeSearch(self):
+    def GetDefaultAnimeSearch(self) -> list[AnimeSearchResult]:
         queryOperation = """
 query($perPage: Int, $type: MediaType = ANIME, $sort: [MediaSort] = [POPULARITY_DESC, SCORE_DESC])  {
     Page(perPage: $perPage){
@@ -173,11 +175,13 @@ query($perPage: Int, $type: MediaType = ANIME, $sort: [MediaSort] = [POPULARITY_
         variables: dict[str, object] = {
             "perPage": 25
         }
-        data = self.__MakePostRequest(self.baseURL, queryOperation, variables)
+        data, status_code = self.__MakePostRequest(self.baseURL, queryOperation, variables)
+        if status_code != 200:
+            return []
         searchResults = self.__CastSearchDataToAnimeSearchResult(data.Page.media)
         return searchResults
 
-    def GetAnimeByID(self, malID: int):
+    def GetAnimeByID(self, malID: int) -> AnimeDetails:
         queryOperation = """
 query Query($idMal: Int, $type: MediaType = ANIME) {
     Media(idMal: $idMal, type: $type) {
@@ -220,5 +224,7 @@ query Query($idMal: Int, $type: MediaType = ANIME) {
 }
         """
         
-        data = self.__MakePostRequest(self.baseURL, queryOperation, {"idMal": malID})
+        data, status_code = self.__MakePostRequest(self.baseURL, queryOperation, {"idMal": malID})
+        if status_code != 200:
+            return []
         return self.__CastAnimeDataToAnimeDetail(data.Media)

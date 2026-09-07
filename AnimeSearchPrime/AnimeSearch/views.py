@@ -45,6 +45,8 @@ def search(request: WSGIRequest):
 def detail(request: WSGIRequest, animeID: int):
     activeFolder = None
     animeDetail = anilistAPIService.GetAnimeByID(animeID)
+    if not animeDetail:
+        return redirect("index")
 
     exists, animeEntry = animeListService.FindAnimeForUserByID(animeID, request.user.pk)
     if exists and animeEntry is not None:
